@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { User } from './user.model';
-import { environment } from '../../environments/environment';
 import { Store } from '@ngrx/store';
+import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { environment } from '../../environments/environment';
 import { AppState } from '../store/app.reducer';
 import { Login, Logout } from './store/auth.actions';
+import { User } from './user.model';
 
 export interface AuthResponseData {
   kind: string;
