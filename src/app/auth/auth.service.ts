@@ -7,7 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AppState } from '../store/app.reducer';
-import { Login, Logout } from './store/auth.actions';
+import { AuthenticateSuccess, Logout } from './store/auth.actions';
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -100,7 +100,7 @@ export class AuthService {
     if (loadedUser.token) {
       // this.user.next(loadedUser);
       this.store.dispatch(
-        new Login({
+        new AuthenticateSuccess({
           email: loadedUser.email,
           userId: loadedUser.id,
           token: loadedUser.token,
@@ -141,7 +141,7 @@ export class AuthService {
     const user = new User(email, userId, token, expirationDate);
     // this.user.next(user);
     this.store.dispatch(
-      new Login({
+      new AuthenticateSuccess({
         email: email,
         userId: userId,
         token: token,
