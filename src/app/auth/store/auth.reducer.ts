@@ -1,10 +1,12 @@
 import { User } from '../user.model';
 import {
   AuthActions,
-  AUTHENTICATE_SUCCES,
   AUTHENTICATE_FAIL,
+  AUTHENTICATE_SUCCES,
+  CLEAR_ERROR,
   LOGIN_START,
   LOGOUT,
+  SIGNUP_START,
 } from './auth.actions';
 
 export interface State {
@@ -16,7 +18,7 @@ export interface State {
 const initialState: State = {
   user: null,
   authError: null,
-  loading: false
+  loading: false,
 };
 
 export function authReducer(state = initialState, action: AuthActions) {
@@ -32,7 +34,7 @@ export function authReducer(state = initialState, action: AuthActions) {
         ...state,
         authError: null,
         user: user,
-        loading: false
+        loading: false,
       };
     case LOGOUT:
       return {
@@ -40,17 +42,23 @@ export function authReducer(state = initialState, action: AuthActions) {
         user: null,
       };
     case LOGIN_START:
+    case SIGNUP_START:
       return {
         ...state,
         authError: null,
-        loading: true
+        loading: true,
       };
     case AUTHENTICATE_FAIL:
       return {
         ...state,
         user: null,
         authError: action.payload,
-        loading: false
+        loading: false,
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null,
       };
     default:
       return state;
