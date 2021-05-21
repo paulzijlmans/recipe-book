@@ -6,14 +6,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AppState } from '../store/app.reducer';
-import { AuthResponseData, AuthService } from './auth.service';
-import { ClearError, CLEAR_ERROR, LoginStart, SignupStart } from './store/auth.actions';
+import { ClearError, LoginStart, SignupStart } from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -30,8 +28,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   private storeSub: Subscription;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<AppState>
   ) {}
@@ -64,7 +60,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         new SignupStart({ email: email, password: password })
       );
     }
-    
+
     form.reset();
   }
 
@@ -77,7 +73,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       this.closeSub.unsubscribe();
     }
     if (this.storeSub) {
-      this.closeSub.unsubscribe();
+      this.storeSub.unsubscribe();
     }
   }
 
