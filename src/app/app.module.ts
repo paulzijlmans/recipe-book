@@ -19,7 +19,7 @@ import { appReducer } from './store/app.reducer';
   declarations: [AppComponent, HeaderComponent],
   imports: [
     AppRoutingModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     HttpClientModule,
     SharedModule,
